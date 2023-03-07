@@ -1,1 +1,1 @@
-# Daily
+# Happy every day
