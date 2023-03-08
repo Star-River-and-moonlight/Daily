@@ -25,3 +25,13 @@ button {
     color: #5c2223;
     margin: 10px 10px;
 }
+#b{
+    width: 400px;
+    height: 150px;
+    margin: 0px auto;
+    text-align: center;
+    font: 18px 楷体;
+    color: #5c2223;
+    position: relative;
+    bottom: 130px;
+}

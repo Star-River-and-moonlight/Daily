@@ -47,3 +47,11 @@ if (/Android (\d+\.\d+)/.test(ua)) {
     document.write('<meta name="viewport" content="width=device-width,initial-scale=' + deviceScale + ',minimum-scale='
         + deviceScale + ',maximum-scale=' + deviceScale + ',user-scalable=no">');
 }
+
+function refreshTime() {
+    const timeDisplay = document.getElementById("time");
+    const dateString = new Date().toLocaleString();
+    const formattedString = dateString.replace(", ", " - ");
+    timeDisplay.textContent = formattedString;
+}
+setInterval(refreshTime, 1000);
