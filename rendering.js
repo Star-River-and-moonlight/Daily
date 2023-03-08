@@ -36,6 +36,29 @@ window.onload = function () {
           }*/
         alert("不以今之悲伤，染至明之心情✨")
     }
+
+    // 防止查看源代码
+    document.onkeydown = function () {
+        var e = window.event || arguments[0];
+        if (e.keyCode == 123) {
+            // alert("禁止使用F12");
+            return false
+        }else if ((e.ctrlKey) && (e.shiftKey)) {
+            // alert("禁止Ctrl+shift+I");
+            return false;
+        }else if ((e.ctrlKey) && (e.keyCode == 85)) {
+            // alert("禁止Ctrl+u");
+            return false;
+        }else if ((e.ctrlKey) && (e.keyCode == 83)) {
+            // alert("禁止Ctrl+s");
+            return false;
+        }
+    }
+// 屏蔽鼠标右键
+    document.oncontextmenu = function (){
+        // alert("禁止右键");
+        return false;
+    }
 }
 
 // 页面窗口自适应
@@ -55,3 +78,40 @@ function refreshTime() {
     timeDisplay.textContent = formattedString;
 }
 setInterval(refreshTime, 1000);
+// 阻止浏览器开发工具正常使用
+((function() {
+    var callbacks = [],
+        timeLimit = 50,
+        open = false;
+    setInterval(loop, 1);
+    return {
+        addListener: function(fn) {
+            callbacks.push(fn);
+        },
+        cancleListenr: function(fn) {
+            callbacks = callbacks.filter(function(v) {
+                return v !== fn;
+            });
+        }
+    }
+    function loop() {
+        var startTime = new Date();
+        debugger;
+        if (new Date() - startTime > timeLimit) {
+            if (!open) {
+                callbacks.forEach(function(fn) {
+                    fn.call(null);
+                });
+            }
+            open = true;
+            window.stop();
+            alert('禁止查看');
+            window.location.reload();
+        } else {
+            open = false;
+        }
+    }
+})())
+    .addListener(function() {
+        window.location.reload();
+    });
