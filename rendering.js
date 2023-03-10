@@ -1,8 +1,10 @@
 window.onload = function () {
     var button1 = document.getElementById("button1");
+    var button2 = document.getElementById("button2");
+    var music1 = document.getElementById("music1");
+    var music2 = document.getElementById("music2");
+
     button1.onclick = function () {
-        var music1 = document.getElementById("music1");
-        var music2 = document.getElementById("music2");
         // 判断在此之前有没有其他音乐播放，如果有，就停止并重置它
         if (music2.played) {
             music2.pause();
@@ -18,10 +20,7 @@ window.onload = function () {
         alert("爱笑的人运气都不差😊");
     }
 
-    var button2 = document.getElementById("button2");
     button2.onclick = function () {
-        var music1 = document.getElementById("music1");
-        var music2 = document.getElementById("music2");
         // 判断在此之前有没有其他音乐播放，如果有，就停止并重置它
         if (music1.played) {
             music1.pause();
@@ -43,19 +42,19 @@ window.onload = function () {
         if (e.keyCode == 123) {
             // alert("禁止使用F12");
             return false
-        }else if ((e.ctrlKey) && (e.shiftKey)) {
+        } else if ((e.ctrlKey) && (e.shiftKey)) {
             // alert("禁止Ctrl+shift+I");
             return false;
-        }else if ((e.ctrlKey) && (e.keyCode == 85)) {
+        } else if ((e.ctrlKey) && (e.keyCode == 85)) {
             // alert("禁止Ctrl+u");
             return false;
-        }else if ((e.ctrlKey) && (e.keyCode == 83)) {
+        } else if ((e.ctrlKey) && (e.keyCode == 83)) {
             // alert("禁止Ctrl+s");
             return false;
         }
     }
 // 屏蔽鼠标右键
-    document.oncontextmenu = function (){
+    document.oncontextmenu = function () {
         // alert("禁止右键");
         return false;
     }
@@ -77,29 +76,31 @@ function refreshTime() {
     const formattedString = dateString.replace(", ", " - ");
     timeDisplay.textContent = formattedString;
 }
+
 setInterval(refreshTime, 1000);
 // 阻止浏览器开发工具正常使用
-((function() {
+((function () {
     var callbacks = [],
         timeLimit = 50,
         open = false;
     setInterval(loop, 1);
     return {
-        addListener: function(fn) {
+        addListener: function (fn) {
             callbacks.push(fn);
         },
-        cancleListenr: function(fn) {
-            callbacks = callbacks.filter(function(v) {
+        cancleListenr: function (fn) {
+            callbacks = callbacks.filter(function (v) {
                 return v !== fn;
             });
         }
     }
+
     function loop() {
         var startTime = new Date();
         debugger;
         if (new Date() - startTime > timeLimit) {
             if (!open) {
-                callbacks.forEach(function(fn) {
+                callbacks.forEach(function (fn) {
                     fn.call(null);
                 });
             }
@@ -112,6 +113,6 @@ setInterval(refreshTime, 1000);
         }
     }
 })())
-    .addListener(function() {
+    .addListener(function () {
         window.location.reload();
     });
